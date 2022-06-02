@@ -20,8 +20,6 @@ async function getData(){
     results.forEach(user => {
         const li = document.createElement('li');
 
-        listItems.push(li);
-
         li.innerHTML = `
             <img src="${user.picture.large}" alt="${user.name.first}">
             <div class="user-info">
@@ -29,6 +27,8 @@ async function getData(){
                 <p>${user.location.city}, ${user.location.country}</p>
             </div>
         `
+        //pushing the newly created li with innerHTML to listItems array for search term use
+        listItems.push(li);
 
         result.append(li);
     })
@@ -36,6 +36,10 @@ async function getData(){
 
 function filterData(searchTerm) {
     listItems.forEach(item => {
-        console.log(item);
+        if(item.innerHTML.toLowerCase().includes(`<h4>${searchTerm.toLowerCase()}`)) {
+            item.classList.remove('hide');
+        } else {
+            item.classList.add('hide');
+        }
     })
 }
